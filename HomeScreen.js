@@ -230,7 +230,7 @@ const HomeScreen = ({ navigation }) => {
         marginLeft: 95,
         left: 93,
         marginTop: -25,
-        top: 100,
+        top: 101,
         left: 93,
         }}>
             1 Certificate
