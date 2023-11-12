@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, handlePress } from 'react-native';
 import * as Font from 'expo-font';
+import { useNavigation } from '@react-navigation/native';
 
 const DetailProduk = () => {
   const [fontLoaded, setFontLoaded] = useState(false);
@@ -35,6 +36,11 @@ const DetailProduk = () => {
   };
 
   const longText = `Course ini dirancang khusus untuk mereka yang benar-benar baru dan ingin memulai perjalanan belajar tentang React Native. Dengan fokus pada pemula, kursus ini memberikan pemahaman mendalam tentang dasar-dasar React Native, membantu Anda membangun fondasi yang kuat dalam pengembangan aplikasi mobile menggunakan teknologi ini`;
+  const navigation = useNavigation();
+
+  const handlePress = () => {
+    navigation.navigate('Checkout'); // 'Checkout' adalah nama stack/halaman yang ingin Anda arahkan
+  };
 
   return (
     <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center', paddingTop: 50 }}>
