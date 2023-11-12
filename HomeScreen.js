@@ -229,8 +229,20 @@ const HomeScreen = ({ navigation }) => {
         fontSize: 14, 
         marginLeft: 95,
         left: 93,
+        marginTop: -25,
+        top: 100,
+        left: 93,
+        }}>
+            1 Certificate
+      </Text>
+      <Text style={{ 
+        fontFamily: 'raleway-regular', 
+        color: '#858585', 
+        fontSize: 14, 
+        marginLeft: 95,
+        left: 93,
         marginTop: -8,
-        top: -9,
+        top: -2,
         left: 93,
         }}>
             4 Quiz
@@ -241,8 +253,19 @@ const HomeScreen = ({ navigation }) => {
         fontSize: 14, 
         marginLeft: 15,
         left: 93,
+        marginTop: -18,
+        top: 88,
+        bottom: 70, }}>
+            20 Video
+      </Text>
+      <Text style={{ 
+        fontFamily: 'raleway-regular', 
+        color: '#858585', 
+        fontSize: 14, 
+        marginLeft: 15,
+        left: 93,
         marginTop: -10,
-        top: -18,
+        top: -12,
         bottom: 35, }}>
             60 Video
       </Text>
@@ -252,8 +275,19 @@ const HomeScreen = ({ navigation }) => {
         fontSize: 14, 
         marginLeft: 15,
         left: 93,
+        marginTop: -23,
+        top: 55,
+        bottom: 35, }}>
+            Rp. 200.000 / paket
+      </Text>
+      <Text style={{ 
+        fontFamily: 'raleway-regular', 
+        color: '#0A8ED9', 
+        fontSize: 14, 
+        marginLeft: 15,
+        left: 93,
         marginTop: -30,
-        top: -30,
+        top: -25,
         bottom: 35, }}>
             Free
       </Text>
@@ -263,8 +297,19 @@ const HomeScreen = ({ navigation }) => {
         fontSize: 17, 
         marginLeft: 15,
         left: 93,
+        marginTop: -20,
+        top: 35,
+        bottom: 35, }}>
+            React advance 30 hari
+      </Text>
+      <Text style={{ 
+        fontFamily: 'raleway-medium', 
+        color: 'black', 
+        fontSize: 17, 
+        marginLeft: 15,
+        left: 93,
         marginTop: -30,
-        top: -45,
+        top: -48,
         bottom: 35, }}>
             Laravel dalam 20 hari
       </Text>
@@ -307,8 +352,14 @@ const HomeScreen = ({ navigation }) => {
     
       
     </View>
-       <TouchableOpacity onPress={() => navigation.navigate('DetailProduk')}>
-        <View style={{ width: 85, height: 83, backgroundColor: 'green', marginRight: 10, top: -100, marginLeft: 14, borderRadius: 21 }}>
+    <TouchableOpacity onPress={() => navigation.navigate('DetailProduk')}>
+      <View style={{ width: 85, height: 83, marginRight: 10, top: -100, marginLeft: 14, borderRadius: 21, overflow: 'hidden' }}>
+        <Image source={require('./assets/image/bawah1.jpeg')} style={{ width: '100%', height: '100%' }} resizeMode="cover" />
+      </View>
+    </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('DetailProduk')}>
+        <View style={{ width: 85, height: 83,marginRight: 10, top: -10, marginLeft: 14, borderRadius: 21, overflow: 'hidden', marginTop: -80 }}>
+          <Image source={require('./assets/image/bawah2.jpeg')} style={{ width: '100%', height: '100%' }} resizeMode="cover" />
         </View>
       </TouchableOpacity>
       

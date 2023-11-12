@@ -1,14 +1,10 @@
 import React from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text } from 'react-native';
 
-const DetailProduk = ({ navigation }) => {
+const DetailProduk = () => {
   return (
-    <View>
+    <View style={{ width: 358.103, height: 324.965, borderRadius: 21.379, backgroundColor: 'lightblue', justifyContent: 'center', alignItems: 'center' }}>
       <Text>Detail Produk</Text>
-      <Button
-        title="Ke Halaman Checkout"
-        onPress={() => navigation.navigate('Checkout')}
-      />
     </View>
   );
 }
