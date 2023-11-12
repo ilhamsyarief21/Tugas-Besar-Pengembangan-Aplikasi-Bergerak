@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, handlePress } from 'react-native';
 import * as Font from 'expo-font';
 
 const DetailProduk = () => {
   const [fontLoaded, setFontLoaded] = useState(false);
   const [showMore, setShowMore] = useState(false);
   const [buttonPosition, setButtonPosition] = useState({ top: -25, left: -75 });
+  
 
   useEffect(() => {
     const loadFont = async () => {
@@ -62,20 +63,45 @@ const DetailProduk = () => {
         {showMore ? longText : `${longText.slice(0, 200)}...`}
       </Text>
       <TouchableOpacity onPress={toggleShowMore} style={{ marginTop: 10, marginLeft: 20, ...buttonPosition }}>
-        <Text style={{ color: '#0A8ED9', fontSize: 12 }}>{showMore ? 'Show Less' : 'Show More'}</Text>
+        <Text style={{ color: '#49aee7', fontSize: 12 }}>{showMore ? 'Show Less' : 'Show More'}</Text>
       </TouchableOpacity>
-        <View style={{ width: 45, height: 45, borderRadius: 30, backgroundColor: '#0A8ED9', marginTop: -10, marginLeft: 20, left: -165 }} />
-        <View style={{ marginTop: 20, paddingHorizontal: 20 , left: -70, top: -65}}>
-          <Text style={{ fontSize: 17,fontFamily: 'raleway-medium' }}>Ilham Syarief</Text>
-          <Text style={{ fontSize: 12, fontFamily: 'raleway-regular', color: '#858585' }}>Main Tutor</Text>
-        </View>
-        <View style={{ width: 29.31 , height: 29.31, backgroundColor: 'lightgray', marginTop: 20 }}>  
-        </View>
-         <View style={{ width: 29.31 , height: 29.31, backgroundColor: 'lightgray', marginTop: 20 }}>  
-         </View>
+      <View style={{ width: 45, height: 45, borderRadius: 30, backgroundColor: '#0A8ED9', marginTop: -10, marginLeft: 20, left: -165 }} />
+      <View style={{ marginTop: 20, paddingHorizontal: 20, left: -70, top: -65 }}>
+        <Text style={{ fontSize: 17, fontFamily: 'raleway-medium' }}>Ilham Syarief</Text>
+        <Text style={{ fontSize: 12, fontFamily: 'raleway-regular', color: '#858585' }}>Main Tutor</Text>
+      </View>
+      <View style={{ width: 29.31, height: 29.31, backgroundColor: '#82c4e9', marginTop: -90, top: -8, left: 100, borderRadius: 5 }} />
+      <View style={{ width: 29.31, height: 29.31, backgroundColor: '#82c4e9', marginTop: -90, top: 53, left: 140, borderRadius: 5 }} />
+
+      {/* Tulisan "Gallery" di bawahnya */}
+      <Text style={{ fontSize: 17, fontFamily: 'raleway-medium', marginTop: 75, left: -145 }}>Gallery</Text>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 20, marginTop: 10 }}>
+        <View style={styles.box} />
+        <View style={styles.box} />
+        <View style={styles.box} />
+        <View style={styles.box} />
+      </View>
+      <Text style={{ fontSize: 12, color: '#858585', marginLeft: -320, top: 20, fontFamily: 'raleway-medium'  }}>Price</Text>
+      <Text style={{ fontSize: 17, color: 'black', marginLeft: -190, top: 20, fontFamily: 'raleway-medium'  }}>Rp. 250.000 / paket</Text>
+      <TouchableOpacity onPress={handlePress}>
+      <View style={{ width: 90, height: 50, backgroundColor: '#82c4e9', marginTop: 3, top: -23, left: 120, borderRadius: 16, justifyContent: 'center', alignItems: 'center' }}>
+        <Text style={{ color: '#fff', textAlign: 'center', fontFamily: 'raleway-bold' }}>Ambil</Text>
+      </View>
+    </TouchableOpacity>
 
     </View>
   );
 }
+const styles = {
+  box: {
+    width: 75,
+    height: 75,
+    borderRadius: 10,
+    backgroundColor: 'lightgray',
+    marginHorizontal: 5,
+    marginLeft: 10,
+    left: -6
+  },
+};
 
 export default DetailProduk;
