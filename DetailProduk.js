@@ -26,21 +26,21 @@ const DetailProduk = ({ route }) => {
       try {
         const response = await fetch('http://si-sdm.id/ecourse/api/web/v1/courses/all');
         const data = await response.json();
-
+    
         console.log('API Response:', data);
-
-        // Access the 'items' property to get the list of courses
-        const courses = data.items;
-
-        // Log the first course
-        const firstCourse = courses[0];
-        console.log('First Course:', firstCourse);
-
-        // Log the instructor's name
-        const instructorName = firstCourse && firstCourse.pengajar;
-        console.log('Nama Pengajar:', instructorName);
-
-        setInstructorName(instructorName);
+    
+        // Find the course with the specified course_id
+        const course = data.items.find(item => item.id === route.params.course_id);
+    
+        if (course) {
+          // Log the instructor's name
+          const instructorName = course.pengajar;
+          console.log('Nama Pengajar:', instructorName);
+    
+          setInstructorName(instructorName);
+        } else {
+          console.error('Course not found for course_id:', route.params.course_id);
+        }
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
