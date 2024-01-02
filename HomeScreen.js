@@ -178,7 +178,7 @@ const HomeScreen = ({ navigation }) => {
       {categories.map((course, index) => (
         <TouchableOpacity
           key={index}
-          onPress={() => navigation.navigate('DetailProduk', { courseId: course.id })}
+          onPress={() => navigation.navigate('DetailProduk', { course_name: course.course_name })}
         >
           <View style={{ width: 237, height: 290, marginRight: 10, top: 20, marginLeft: 6, borderRadius: 21, overflow: 'hidden' }}>
             <Image

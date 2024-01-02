@@ -4,7 +4,9 @@ import * as Font from 'expo-font';
 import { useNavigation } from '@react-navigation/native';
 import { FontAwesome } from '@expo/vector-icons'; // Import FontAwesome from react-native-vector-icons
 
-const DetailProduk = () => {
+const DetailProduk = ({ route }) => {
+  // Extract the course_name from the route parameters
+  const { course_name } = route.params;
   const [fontLoaded, setFontLoaded] = useState(false);
   const [showMore, setShowMore] = useState(false);
   const [buttonPosition, setButtonPosition] = useState({ top: -25, left: -75 });
@@ -71,9 +73,10 @@ const DetailProduk = () => {
       
       <FontAwesome name="bath" size={15} color="white" style={{marginTop: -15, top: -32, left: -20}}/>
 
-      <Text style={{ fontFamily: 'raleway-bold', position: 'absolute', top: '60%', color: 'white', top: 170, left: 30, marginTop: 20  }}>React Native Untuk Pemula</Text>
+      <Text style={{ fontFamily: 'raleway-bold', position: 'absolute', top: '63%', color: '#D7D7D7', left: 30 , marginTop: 20, fontSize: 20}}>
+        {course_name}
+      </Text>
       
-      <Text style={{ fontFamily: 'raleway-medium', position: 'absolute', top: '63%', color: '#D7D7D7', left: 30 , marginTop: 20}}>Course Untuk Pemula</Text>
     </View>
     <TouchableOpacity onPress={ilham}>
       <FontAwesome
