@@ -171,33 +171,34 @@ const HomeScreen = ({ navigation }) => {
     
 
     <ScrollView
-      horizontal
-      contentContainerStyle={{ flexDirection: 'row' }}
-      showsHorizontalScrollIndicator={false}
-    >
-      {categories.map((course, index) => (
-        <TouchableOpacity
-          key={index}
-          onPress={() => navigation.navigate('DetailProduk', { course_name: course.course_name })}
-        >
-          <View style={{ width: 237, height: 290, marginRight: 10, top: 20, marginLeft: 6, borderRadius: 21, overflow: 'hidden' }}>
-            <Image
-              source={course.course_name === 'Course1' ? require('./assets/image/1.jpeg') : require('./assets/image/2.jpeg')}
-              style={{ width: '100%', height: '100%', borderRadius: 21 }}
-            />
-            <View style={{ position: 'absolute', bottom: 5, left: 0, right: 0, height: 100, borderRadius: 10, backgroundColor: 'rgba(0, 0, 0, 0.7)', opacity: 0.3 }} />
-            <View style={{ position: 'absolute', top: 203, left: 10 }}>
-              <Text style={{ color: 'white', fontFamily: 'raleway-medium', fontSize: 17 }}>
-                {course.course_name}
-              </Text>
-              <Text style={{ color: 'white', fontFamily: 'raleway-medium', fontSize: 12, marginTop: 5 }}>
-                {course.description}
-              </Text>
+        horizontal
+        contentContainerStyle={{ flexDirection: 'row' }}
+        showsHorizontalScrollIndicator={false}
+      >
+        {categories.map((course, index) => (
+          <TouchableOpacity
+            key={index}
+            onPress={() => navigation.navigate('DetailProduk', { course_name: course.course_name, course_id: course.id })}
+          >
+            <View style={{ width: 237, height: 290, marginRight: 10, top: 20, marginLeft: 6, borderRadius: 21, overflow: 'hidden' }}>
+              <Image
+                source={course.course_name === 'Course1' ? require('./assets/image/1.jpeg') : require('./assets/image/2.jpeg')}
+                style={{ width: '100%', height: '100%', borderRadius: 21 }}
+              />
+              <View style={{ position: 'absolute', bottom: 5, left: 0, right: 0, height: 100, borderRadius: 10, backgroundColor: 'rgba(0, 0, 0, 0.7)', opacity: 0.3 }} />
+              <View style={{ position: 'absolute', top: 203, left: 10 }}>
+                <Text style={{ color: 'white', fontFamily: 'raleway-medium', fontSize: 17 }}>
+                  {course.course_name}
+                </Text>
+                <Text style={{ color: 'white', fontFamily: 'raleway-medium', fontSize: 12, marginTop: 5 }}>
+                  {course.description}
+                </Text>
+              </View>
             </View>
-          </View>
-        </TouchableOpacity>
-      ))}
-    </ScrollView>
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
+
 
     
     
