@@ -29,7 +29,7 @@ const HomeScreen = ({ navigation }) => {
 
   const handleScroll = (event) => {
     const offsetX = event.nativeEvent.contentOffset.x;
-    // You can use offsetX to determine how much the user has scrolled horizontally
+    
   };
 
   const handleItemClick = (index) => {
@@ -69,7 +69,7 @@ const HomeScreen = ({ navigation }) => {
   smallBox: {
     width: 50,
     height: 50,
-    backgroundColor: 'blue', // Change the color as needed
+    backgroundColor: 'blue',
     borderRadius: 10,
     marginTop: 20,
   },
@@ -79,19 +79,19 @@ const HomeScreen = ({ navigation }) => {
   const itemTexts = ['Flutter', 'React Native', 'HTML', 'CSS', 'JavaScript', 'Python'];
 
   const handlePressLeft = () => {
-    // Add logic for sliding left
+  
   };
 
   const handlePressRight = () => {
-    // Add logic for sliding right
+    
   };
 
   return (
     <View style={{ backgroundColor: 'white', flex: 1 }}>
       <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
         <View>
-          <Text style={{ fontFamily: 'raleway-medium', color: '#838383', fontSize: 15, marginTop: 20, marginLeft: 13 }}>Kategori</Text>
-          <Text style={{ fontFamily: 'raleway-medium', color: 'black', fontSize: 21, marginTop: 3, marginLeft: 13 }}>Programming</Text>
+          <Text style={{ fontFamily: 'raleway-medium', color: '#838383', fontSize: 15, marginTop: 70, marginLeft: 13, top: -20 }}>Kategori</Text>
+          <Text style={{ fontFamily: 'raleway-medium', color: 'black', fontSize: 21, marginTop: -25, marginLeft: 13, top: 10 }}>Programming</Text>
       
     </View>
     
@@ -99,11 +99,11 @@ const HomeScreen = ({ navigation }) => {
     
     
 
-        <View style={{ position: 'absolute', top: 49, marginLeft: 151 }}>
+        <View style={{ position: 'absolute', top: 81, marginLeft: 151 }}>
           <Icon name="chevron-down" size={25} color="#838383" />
         </View>
         
-        <View style={{ position: 'absolute', top: 34, right: 10 }}>
+        <View style={{ position: 'absolute', top: 70, right: 10 }}>
           <Icon name="notifications-outline" size={30} color="black" />
         </View>
         
@@ -134,7 +134,7 @@ const HomeScreen = ({ navigation }) => {
       
       
       
-      <Icon name="search" size={29} color="#838383" style={{ position: 'absolute', left: 20, top: 106 }} />
+      <Icon name="search" size={29} color="#838383" style={{ position: 'absolute', left: 20, top: 126 }} />
         
       <FlatList
       horizontal
@@ -155,8 +155,8 @@ const HomeScreen = ({ navigation }) => {
       showsHorizontalScrollIndicator={false}
     >
       <TouchableOpacity onPress={() => navigation.navigate('DetailProduk')}>
-        <View style={{ width: 237, height: 290, marginRight: 10, top: 20, marginLeft: 6, borderRadius: 21, overflow: 'hidden' }}>
-          <Image source={require('./assets/image/1.jpeg')} style={{ width: '100%', height: '100%', borderRadius: 21 }} />
+        <View style={{ width: 237, height: 290, marginRight: 10, top: 20, marginLeft: 6, borderRadius: 21, overflow: 'hidden', }}>
+          <Image source={require('./assets/image/1.jpeg')} style={{ width: '100%', height: '100%', borderRadius: 21, }} />
           <View style={{ position: 'absolute', bottom: 5, left: 0, right: 0, height: 100, borderRadius: 10, backgroundColor: 'rgba(0, 0, 0, 0.7)', opacity: 0.3 }} />
           <View style={{ position: 'absolute', top: 203, left: 10 }}>
             <Text style={{ color: 'white', fontFamily: 'raleway-medium', fontSize: 17 }}>
@@ -198,7 +198,8 @@ const HomeScreen = ({ navigation }) => {
         color: 'gray', 
         fontSize: 15, 
         marginLeft: 300,
-        marginTop: -10,
+        marginTop: 35,
+        top: -430,
         bottom: 356 }}>
             See more
       </Text>
@@ -208,8 +209,9 @@ const HomeScreen = ({ navigation }) => {
         color: 'black', 
         fontSize: 20, 
         marginLeft: 15,
-        marginTop: 30,
-        bottom: 410 }}>
+        marginTop: 40,
+        bottom: 410,
+        top: -493 }}>
             Populer
       </Text>
       <Text style={{ 
@@ -217,8 +219,8 @@ const HomeScreen = ({ navigation }) => {
         color: '#858585', 
         fontSize: 15, 
         marginLeft: 206,
-        marginTop: -20,
-        top: -77,
+        marginTop: -45,
+        top: -115,
         left: 93,
         }}>
             See more
@@ -319,6 +321,7 @@ const HomeScreen = ({ navigation }) => {
         fontSize: 20, 
         marginLeft: 15,
         marginTop: -70,
+        top: -70,
         bottom: 35, }}>
             Rekomendasi
       </Text>
@@ -330,8 +333,8 @@ const HomeScreen = ({ navigation }) => {
         height: 51,
         backgroundColor: '#42bcf5',
         marginVertical: 10,
-        top: -546,
-        left: 320,
+        top: -605,
+        left: 340,
         borderRadius: 10,
         justifyContent: 'center',
         alignItems: 'center',
