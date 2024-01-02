@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet,Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import * as Font from 'expo-font';
+import { useRoute } from '@react-navigation/native'; // Import useRoute
 
 const Checkout = () => {
+  const route = useRoute(); // Gunakan useRoute untuk mendapatkan objek route
   const [fontLoaded, setFontLoaded] = useState(false);
   const [quantity, setQuantity] = useState('');
   const [totalPrice, setTotalPrice] = useState(0);
@@ -27,7 +29,6 @@ const Checkout = () => {
     const enteredQuantity = parseInt(quantity) || 0;
     let calculatedTotalPrice = pricePerPackage * enteredQuantity;
 
-  
     if (voucherCode === 'POTONGAN50%') {
       const discountPercentage = 50;
       const discountAmount = (calculatedTotalPrice * discountPercentage) / 100;
@@ -50,7 +51,8 @@ const Checkout = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>React Native untuk Pemula</Text>
+      <Text style={styles.text}>{route.params.course_name}</Text>
+
       <View style={styles.box}></View>
       <Text style={{ bottom: 75, fontFamily: 'raleway-medium' }}>Price</Text>
       <Text style={{ bottom: 75, fontFamily: 'raleway-bold', fontSize: 23 }}>Rp. 250.000 / paket</Text>

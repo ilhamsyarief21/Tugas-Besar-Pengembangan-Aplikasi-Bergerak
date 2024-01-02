@@ -73,8 +73,9 @@ const DetailProduk = ({ route }) => {
   const navigation = useNavigation();
 
   const handlePress = () => {
-    navigation.navigate('Checkout'); // 'Checkout' adalah nama stack/halaman yang ingin Anda arahkan
+    navigation.navigate('Checkout', { course_name: course_name });
   };
+  
 
   const ilham = () => {
     navigation.navigate('Home'); // 'Checkout' adalah nama stack/halaman yang ingin Anda arahkan

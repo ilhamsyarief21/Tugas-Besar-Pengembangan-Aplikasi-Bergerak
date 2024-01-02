@@ -368,16 +368,20 @@ const HomeScreen = ({ navigation }) => {
     
       
     </View>
-    <TouchableOpacity onPress={() => navigation.navigate('DetailProduk')}>
-      <View style={{ width: 85, height: 83, marginRight: 10, top: -100, marginLeft: 14, borderRadius: 21, overflow: 'hidden' }}>
-        <Image source={require('./assets/image/bawah1.jpeg')} style={{ width: '100%', height: '100%' }} resizeMode="cover" />
-      </View>
-    </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('DetailProduk')}>
-        <View style={{ width: 85, height: 83,marginRight: 10, top: -10, marginLeft: 14, borderRadius: 21, overflow: 'hidden', marginTop: -80 }}>
-          <Image source={require('./assets/image/bawah2.jpeg')} style={{ width: '100%', height: '100%' }} resizeMode="cover" />
-        </View>
-      </TouchableOpacity>
+    <TouchableOpacity onPress={() => navigation.navigate('DetailProduk', { course_name: 'Belajar PHP', pengajar: 'Riza Agustiansyah, S.T., M.T., Ph.D', course_id: 1 })}>
+  <View style={{ width: 85, height: 83, marginRight: 10, top: -100, marginLeft: 14, borderRadius: 21, overflow: 'hidden' }}>
+    <Image source={require('./assets/image/bawah1.jpeg')} style={{ width: '100%', height: '100%' }} resizeMode="cover" />
+  </View>
+</TouchableOpacity>
+
+<TouchableOpacity onPress={() => navigation.navigate('DetailProduk', { course_name: 'Belajar React Native', pengajar: 'ARI FAJAR SANTOSO', course_id: 2 })}>
+  <View style={{ width: 85, height: 83, marginRight: 10, top: -10, marginLeft: 14, borderRadius: 21, overflow: 'hidden', marginTop: -80 }}>
+    <Image source={require('./assets/image/bawah2.jpeg')} style={{ width: '100%', height: '100%' }} resizeMode="cover" />
+  </View>
+</TouchableOpacity>
+
+
+
       
     </View>
     
