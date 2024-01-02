@@ -3,12 +3,12 @@ import { View, Text, TextInput, FlatList, TouchableOpacity, ScrollView, Image } 
 import * as Font from 'expo-font';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-
 const HomeScreen = ({ navigation }) => {
   const [fontLoaded, setFontLoaded] = useState(false);
   const [searchText, setSearchText] = useState('');
   const [data, setData] = useState(Array.from({ length: 6 }, (_, i) => i));
   const [clickedIndex, setClickedIndex] = useState(null);
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     const loadFont = async () => {
@@ -20,12 +20,33 @@ const HomeScreen = ({ navigation }) => {
       });
       setFontLoaded(true);
     };
+  
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch('http://si-sdm.id/ecourse/api/web/v1/courses/all');
+        const result = await response.json();
+  
+        // Ensure that result.items is an array
+        if (Array.isArray(result.items)) {
+          setCategories(result.items);
+        } else {
+          console.error('API response does not contain an array of items:', result);
+          setCategories([]); // Set an empty array as a fallback
+        }
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      }
+    };
+  
     loadFont();
+    fetchCategories();
   }, []);
-
+  
   if (!fontLoaded) {
     return null;
   }
+
+  
 
   const handleScroll = (event) => {
     const offsetX = event.nativeEvent.contentOffset.x;
@@ -76,7 +97,7 @@ const HomeScreen = ({ navigation }) => {
 };
 
 
-  const itemTexts = ['Flutter', 'React Native', 'HTML', 'CSS', 'JavaScript', 'Python'];
+  const itemTexts = Array.isArray(categories) ? categories.map(category => category.category) : [];
 
   const handlePressLeft = () => {
   
