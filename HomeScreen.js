@@ -88,7 +88,7 @@ const HomeScreen = ({ navigation }) => {
   };
   const styles = {
   smallBox: {
-    width: 50,
+    width: 520,
     height: 50,
     backgroundColor: 'blue',
     borderRadius: 10,
@@ -175,39 +175,30 @@ const HomeScreen = ({ navigation }) => {
       contentContainerStyle={{ flexDirection: 'row' }}
       showsHorizontalScrollIndicator={false}
     >
-      <TouchableOpacity onPress={() => navigation.navigate('DetailProduk')}>
-        <View style={{ width: 237, height: 290, marginRight: 10, top: 20, marginLeft: 6, borderRadius: 21, overflow: 'hidden', }}>
-          <Image source={require('./assets/image/1.jpeg')} style={{ width: '100%', height: '100%', borderRadius: 21, }} />
-          <View style={{ position: 'absolute', bottom: 5, left: 0, right: 0, height: 100, borderRadius: 10, backgroundColor: 'rgba(0, 0, 0, 0.7)', opacity: 0.3 }} />
-          <View style={{ position: 'absolute', top: 203, left: 10 }}>
-            <Text style={{ color: 'white', fontFamily: 'raleway-medium', fontSize: 17 }}>
-              React Native untuk Pemula
-            </Text>
-            <Text style={{ color: 'white', fontFamily: 'raleway-medium', fontSize: 12, marginTop: 5 }}>
-              Course untuk pemula
-            </Text>
+      {categories.map((course, index) => (
+        <TouchableOpacity
+          key={index}
+          onPress={() => navigation.navigate('DetailProduk', { courseId: course.id })}
+        >
+          <View style={{ width: 237, height: 290, marginRight: 10, top: 20, marginLeft: 6, borderRadius: 21, overflow: 'hidden' }}>
+            <Image
+              source={course.course_name === 'Course1' ? require('./assets/image/1.jpeg') : require('./assets/image/2.jpeg')}
+              style={{ width: '100%', height: '100%', borderRadius: 21 }}
+            />
+            <View style={{ position: 'absolute', bottom: 5, left: 0, right: 0, height: 100, borderRadius: 10, backgroundColor: 'rgba(0, 0, 0, 0.7)', opacity: 0.3 }} />
+            <View style={{ position: 'absolute', top: 203, left: 10 }}>
+              <Text style={{ color: 'white', fontFamily: 'raleway-medium', fontSize: 17 }}>
+                {course.course_name}
+              </Text>
+              <Text style={{ color: 'white', fontFamily: 'raleway-medium', fontSize: 12, marginTop: 5 }}>
+                {course.description}
+              </Text>
+            </View>
           </View>
-        </View>
-      </TouchableOpacity>
-
-      <TouchableOpacity onPress={() => navigation.navigate('DetailProduk')}>
-        <View style={{ width: 237, height: 290, marginRight: 10, top: 20, marginLeft: 6, borderRadius: 21, overflow: 'hidden' }}>
-          <Image source={require('./assets/image/2.jpeg')} style={{ width: '100%', height: '100%', borderRadius: 21 }} />
-          <View style={{ position: 'absolute', bottom: 5, left: 0, right: 0, height: 100, borderRadius: 10, backgroundColor: 'rgba(0, 0, 0, 0.7)', opacity: 0.1 }} />
-          <View style={{ position: 'absolute', top: 203, left: 10 }}>
-            <Text style={{ color: 'white', fontFamily: 'raleway-medium', fontSize: 17 }}>
-              React Native untuk Pemula
-            </Text>
-            <Text style={{ color: 'white', fontFamily: 'raleway-medium', fontSize: 12, marginTop: 5 }}>
-              Course untuk pemula
-            </Text>
-          </View>
-        </View>
-      </TouchableOpacity>
-      
-      
-
+        </TouchableOpacity>
+      ))}
     </ScrollView>
+
     
     
     
