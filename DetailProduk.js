@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { FontAwesome } from '@expo/vector-icons';
 
 const DetailProduk = ({ route }) => {
-  const { course_name } = route.params;
+  const { course_name } = route.params;setFontLoaded
   const [fontLoaded, setFontLoaded] = useState(false);
   const [showMore, setShowMore] = useState(false);
   const [buttonPosition, setButtonPosition] = useState({ top: -25, left: -75 });

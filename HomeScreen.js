@@ -76,6 +76,7 @@ const HomeScreen = ({ navigation }) => {
             justifyContent: 'center',
             alignItems: 'center',
             top: 1
+            
           }}
           
         >
