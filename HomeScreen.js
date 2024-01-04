@@ -9,6 +9,7 @@ const HomeScreen = ({ navigation }) => {
   const [data, setData] = useState(Array.from({ length: 6 }, (_, i) => i));
   const [clickedIndex, setClickedIndex] = useState(null);
   const [categories, setCategories] = useState([]);
+  const [selectedCourse, setSelectedCourse] = useState(null);
 
   useEffect(() => {
     const loadFont = async () => {
@@ -20,46 +21,54 @@ const HomeScreen = ({ navigation }) => {
       });
       setFontLoaded(true);
     };
-  
+
     const fetchCategories = async () => {
       try {
-        const response = await fetch('http://si-sdm.id/ecourse/api/web/v1/courses/all');
+        let url = 'http://si-sdm.id/ecourse/api/web/v1/courses/all';
+
+        if (selectedCourse) {
+          url += `?id=${selectedCourse}`;
+        }
+
+        const response = await fetch(url);
         const result = await response.json();
-  
-        // Ensure that result.items is an array
+
         if (Array.isArray(result.items)) {
           setCategories(result.items);
         } else {
           console.error('API response does not contain an array of items:', result);
-          setCategories([]); // Set an empty array as a fallback
+          setCategories([]);
         }
       } catch (error) {
         console.error('Error fetching categories:', error);
       }
     };
-  
+
     loadFont();
     fetchCategories();
-  }, []);
-  
+  }, [selectedCourse]);
+
   if (!fontLoaded) {
     return null;
   }
 
-  
-
-  const handleScroll = (event) => {
-    const offsetX = event.nativeEvent.contentOffset.x;
-    
-  };
-
   const handleItemClick = (index) => {
     setClickedIndex(index);
+    const courseId = categories[index]?.id;
+    setSelectedCourse(courseId);
+    if (clickedIndex === index) {
+      setClickedIndex(null);
+      setSelectedCourse(null);
+    } else {
+      setClickedIndex(index);
+      const courseId = categories[index]?.id;
+      setSelectedCourse(courseId);
+    }
+  
   };
 
   const renderItem = ({ item, index }) => {
     return (
-      
       <TouchableOpacity onPress={() => handleItemClick(index)}>
         <View
           style={{
@@ -75,10 +84,8 @@ const HomeScreen = ({ navigation }) => {
             elevation: 5,
             justifyContent: 'center',
             alignItems: 'center',
-            top: 1
-            
+            top: 30
           }}
-          
         >
           <Text style={{ color: clickedIndex === index ? '#fff' : '#77797a', fontFamily: 'raleway-regular' }}>
             {itemTexts[index]}
@@ -87,18 +94,9 @@ const HomeScreen = ({ navigation }) => {
       </TouchableOpacity>
     );
   };
-  const styles = {
-  smallBox: {
-    width: 520,
-    height: 50,
-    backgroundColor: 'blue',
-    borderRadius: 10,
-    marginTop: 20,
-  },
-};
-
 
   const itemTexts = Array.isArray(categories) ? categories.map(category => category.category) : [];
+
 
   const handlePressLeft = () => {
   
@@ -159,24 +157,23 @@ const HomeScreen = ({ navigation }) => {
       <Icon name="search" size={29} color="#838383" style={{ position: 'absolute', left: 20, top: 126 }} />
         
       <FlatList
-      horizontal
-      data={data}
-      renderItem={renderItem}
-      keyExtractor={(item) => item.toString()}
-      onScroll={handleScroll}
-      scrollEventThrottle={16}
-      top={40}
-      showsHorizontalScrollIndicator={false} 
-    />
+        horizontal
+        data={categories}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id.toString()}
+        showsHorizontalScrollIndicator={false}
+      />
     
     
 
     <ScrollView
-        horizontal
-        contentContainerStyle={{ flexDirection: 'row' }}
-        showsHorizontalScrollIndicator={false}
-      >
-        {categories.map((course, index) => (
+      horizontal
+      contentContainerStyle={{ flexDirection: 'row' }}
+      showsHorizontalScrollIndicator={false}
+    >
+      {categories.map((course, index) => (
+        // Filter kondisi: tampilkan kursus hanya jika tidak ada kategori yang dipilih atau jika kategorinya sesuai
+        (!selectedCourse || selectedCourse === course.id) && (
           <TouchableOpacity
             key={index}
             onPress={() => navigation.navigate('DetailProduk', { course_name: course.course_name, course_id: course.id })}
@@ -197,8 +194,10 @@ const HomeScreen = ({ navigation }) => {
               </View>
             </View>
           </TouchableOpacity>
-        ))}
-      </ScrollView>
+        )
+      ))}
+    </ScrollView>
+
 
 
     
