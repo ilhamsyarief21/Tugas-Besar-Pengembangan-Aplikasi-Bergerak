@@ -104,7 +104,7 @@ const DetailProduk = ({ route }) => {
         />
         <FontAwesome name="bed" size={15} color="white" style={{ marginTop: -15, top: -30, left: -138 }} />
         <FontAwesome name="bath" size={15} color="white" style={{ marginTop: -15, top: -32, left: -20 }} />
-        <Text style={{ fontFamily: 'raleway-bold', position: 'absolute', top: '63%', color: '#D7D7D7', left: 30, marginTop: 20, fontSize: 20 }}>
+        <Text style={{ fontFamily: 'raleway-bold', position: 'absolute', top: '63%', color: 'white', left: 30, marginTop: 20, fontSize: 20 }}>
           {course_name}
         </Text>
       </View>
@@ -171,8 +171,8 @@ const DetailProduk = ({ route }) => {
         position: 'absolute',
         top: '50%',
         color: 'white',
-        top: 189,
-        left: 192,
+        top: 188,
+        left: 198,
         marginTop: 137
       }}>4 Bathroom</Text>
       <View style={{ marginTop: 20, paddingHorizontal: 20, left: -36, top: -65 }}>
