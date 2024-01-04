@@ -29,11 +29,11 @@ const DetailProduk = ({ route }) => {
     
         console.log('API Response:', data);
     
-        // Find the course with the specified course_id
+  
         const course = data.items.find(item => item.id === route.params.course_id);
     
         if (course) {
-          // Log the instructor's name
+      
           const instructorName = course.pengajar;
           console.log('Nama Pengajar:', instructorName);
     
