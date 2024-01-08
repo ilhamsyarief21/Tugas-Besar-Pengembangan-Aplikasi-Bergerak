@@ -51,6 +51,22 @@ const HomeScreen = ({ navigation }) => {
   if (!fontLoaded) {
     return null;
   }
+  const handleSearch = async () => {
+    try {
+      const searchUrl = `http://si-sdm.id/ecourse/api/web/v1/courses/search-by-name?name=${searchText}`;
+      const response = await fetch(searchUrl);
+      const result = await response.json();
+
+      if (Array.isArray(result.items)) {
+        setCategories(result.items);
+      } else {
+        console.error('API response does not contain an array of items:', result);
+        setCategories([]);
+      }
+    } catch (error) {
+      console.error('Error fetching search results:', error);
+    }
+  };
 
   const handleItemClick = (index) => {
     setClickedIndex(index);
@@ -132,7 +148,7 @@ const HomeScreen = ({ navigation }) => {
       
       
 
-      <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10, paddingHorizontal: 50, top: 10, right: 37 }}>
+      <View style={{ flexDirection: 'row', justifyContent: 'flex-start', marginTop: 20, paddingHorizontal: 40, marginLeft: -30 }}>
         <TextInput
           style={{
             flex: 1,
@@ -143,14 +159,16 @@ const HomeScreen = ({ navigation }) => {
             backgroundColor: '#F7F7F7',
             fontSize: 17,
             fontFamily: 'raleway-regular',
+            maxWidth: 330, // Sesuaikan lebar maksimum sesuai kebutuhan
           }}
           placeholder="Cari Course"
+          value={searchText}
+          onChangeText={(text) => setSearchText(text)}
+          onSubmitEditing={handleSearch}
         />
-        
-        
-        
-      </View >
-      
+      </View>
+
+
       
       
       
@@ -347,7 +365,7 @@ const HomeScreen = ({ navigation }) => {
         backgroundColor: '#42bcf5',
         marginVertical: 10,
         top: -605,
-        left: 340,
+        left: 355,
         borderRadius: 10,
         justifyContent: 'center',
         alignItems: 'center',
@@ -365,6 +383,7 @@ const HomeScreen = ({ navigation }) => {
       
       
       <Icon name="options" size={32} color="white" />
+      
     
       
     </View>

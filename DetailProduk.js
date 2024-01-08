@@ -5,41 +5,49 @@ import { useNavigation } from '@react-navigation/native';
 import { FontAwesome } from '@expo/vector-icons';
 
 const DetailProduk = ({ route }) => {
-  const { course_name } = route.params;setFontLoaded
+  const { course_name } = route.params;
   const [fontLoaded, setFontLoaded] = useState(false);
   const [showMore, setShowMore] = useState(false);
   const [buttonPosition, setButtonPosition] = useState({ top: -25, left: -75 });
   const [instructorName, setInstructorName] = useState('');
+  const [price, setPrice] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+
 
   useEffect(() => {
     const loadFont = async () => {
-      await Font.loadAsync({
-        'raleway-regular': require('./assets/fonts/Raleway-Regular.ttf'),
-        'raleway-medium': require('./assets/fonts/Raleway-Medium.ttf'),
-        'raleway-bold': require('./assets/fonts/Raleway-Bold.ttf'),
-      });
-      setFontLoaded(true);
-    };
-
-    const fetchInstructorName = async () => {
       try {
-        const response = await fetch('http://si-sdm.id/ecourse/api/web/v1/courses/all');
+        await Font.loadAsync({
+          'raleway-regular': require('./assets/fonts/Raleway-Regular.ttf'),
+          'raleway-medium': require('./assets/fonts/Raleway-Medium.ttf'),
+          'raleway-bold': require('./assets/fonts/Raleway-Bold.ttf'),
+        });
+        setFontLoaded(true);
+      } catch (error) {
+        console.error('Error loading fonts:', error);
+        setIsLoading(false);
+      }
+    };
+  
+    const fetchCourseDetails = async () => {
+      try {
+        const response = await fetch(`http://si-sdm.id/ecourse/api/web/v1/courses/get-item?id=${route.params.course_id}`);
         const data = await response.json();
     
         console.log('API Response:', data);
     
-  
-        const course = data.items.find(item => item.id === route.params.course_id);
-    
-        if (course) {
-      
+        if (data.status === 'ok') {
+          const course = data.data;
           const instructorName = course.pengajar;
+          const price = course.harga;
+    
           console.log('Nama Pengajar:', instructorName);
+          console.log('Harga:', price);
     
           setInstructorName(instructorName);
+          setPrice(price);
         } else {
-          console.error('Course not found for course_id:', route.params.course_id);
+          console.error('Failed to fetch course details:', data.message);
         }
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -47,10 +55,11 @@ const DetailProduk = ({ route }) => {
         setIsLoading(false);
       }
     };
-
+  
     loadFont();
-    fetchInstructorName();
+    fetchCourseDetails();
   }, []);
+  
 
   if (!fontLoaded || isLoading) {
     return (
@@ -62,10 +71,7 @@ const DetailProduk = ({ route }) => {
 
   const toggleShowMore = () => {
     setShowMore(!showMore);
-
-    // Ubah posisi tombol setelah ditekan
-    const newButtonPosition = showMore ? { top: -25, left: -18 } : { top: -25, left: 38 };
-    setButtonPosition(newButtonPosition);
+    setButtonPosition({ top: -25, left: showMore ? -18 : 38 });
   };
 
   const longText = `Course ini dirancang khusus untuk mereka yang benar-benar baru dan ingin memulai perjalanan belajar tentang React Native. Dengan fokus pada pemula, kursus ini memberikan pemahaman mendalam tentang dasar-dasar React Native, membantu Anda membangun fondasi yang kuat dalam pengembangan aplikasi mobile menggunakan teknologi ini`;
@@ -75,10 +81,9 @@ const DetailProduk = ({ route }) => {
   const handlePress = () => {
     navigation.navigate('Checkout', { course_name: course_name });
   };
-  
 
   const ilham = () => {
-    navigation.navigate('Home'); // 'Checkout' adalah nama stack/halaman yang ingin Anda arahkan
+    navigation.navigate('Home');
   };
 
   const galleryImages = [
@@ -203,7 +208,9 @@ const DetailProduk = ({ route }) => {
         ))}
       </View>
       <Text style={{ fontSize: 12, color: '#858585', marginLeft: -320, top: 20, fontFamily: 'raleway-medium' }}>Price</Text>
-      <Text style={{ fontSize: 17, color: 'black', marginLeft: -190, top: 20, fontFamily: 'raleway-medium' }}>Rp. 250.000 / paket</Text>
+      <Text style={{ fontSize: 17, color: 'black', marginLeft: -190, top: 20, fontFamily: 'raleway-medium' }}>
+        {price !== null ? `Rp. ${price} / paket` : 'Loading...'}
+      </Text>
       <TouchableOpacity onPress={handlePress}>
         <View style={{
           width: 90,
