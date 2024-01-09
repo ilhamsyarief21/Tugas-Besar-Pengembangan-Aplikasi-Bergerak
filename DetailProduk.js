@@ -2,17 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
 import * as Font from 'expo-font';
 import { useNavigation } from '@react-navigation/native';
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 
 const DetailProduk = ({ route }) => {
   const { course_name } = route.params;
   const [fontLoaded, setFontLoaded] = useState(false);
-  const [showMore, setShowMore] = useState(false);
-  const [buttonPosition, setButtonPosition] = useState({ top: -25, left: -75 });
   const [instructorName, setInstructorName] = useState('');
   const [price, setPrice] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-
+  const [description, setDescription] = useState('');
+  const [duration, setDuration] = useState(null); // Tambahkan state untuk menyimpan durasi
 
   useEffect(() => {
     const loadFont = async () => {
@@ -28,24 +27,30 @@ const DetailProduk = ({ route }) => {
         setIsLoading(false);
       }
     };
-  
+
     const fetchCourseDetails = async () => {
       try {
         const response = await fetch(`http://si-sdm.id/ecourse/api/web/v1/courses/get-item?id=${route.params.course_id}`);
         const data = await response.json();
-    
+
         console.log('API Response:', data);
-    
+
         if (data.status === 'ok') {
           const course = data.data;
           const instructorName = course.pengajar;
           const price = course.harga;
-    
+          const descriptionFromAPI = course.deskripsi;
+          const durationFromAPI = course.durasi;
+
           console.log('Nama Pengajar:', instructorName);
           console.log('Harga:', price);
-    
+          console.log('Deskripsi dari API:', descriptionFromAPI);
+          console.log('Durasi dari API:', durationFromAPI);
+
           setInstructorName(instructorName);
           setPrice(price);
+          setDescription(descriptionFromAPI);
+          setDuration(durationFromAPI);
         } else {
           console.error('Failed to fetch course details:', data.message);
         }
@@ -55,11 +60,10 @@ const DetailProduk = ({ route }) => {
         setIsLoading(false);
       }
     };
-  
+
     loadFont();
     fetchCourseDetails();
   }, []);
-  
 
   if (!fontLoaded || isLoading) {
     return (
@@ -68,13 +72,6 @@ const DetailProduk = ({ route }) => {
       </View>
     );
   }
-
-  const toggleShowMore = () => {
-    setShowMore(!showMore);
-    setButtonPosition({ top: -25, left: showMore ? -18 : 38 });
-  };
-
-  const longText = `Course ini dirancang khusus untuk mereka yang benar-benar baru dan ingin memulai perjalanan belajar tentang React Native. Dengan fokus pada pemula, kursus ini memberikan pemahaman mendalam tentang dasar-dasar React Native, membantu Anda membangun fondasi yang kuat dalam pengembangan aplikasi mobile menggunakan teknologi ini`;
 
   const navigation = useNavigation();
 
@@ -107,21 +104,20 @@ const DetailProduk = ({ route }) => {
           }}
           resizeMode="cover"
         />
-        <FontAwesome name="bed" size={15} color="white" style={{ marginTop: -15, top: -30, left: -138 }} />
-        <FontAwesome name="bath" size={15} color="white" style={{ marginTop: -15, top: -32, left: -20 }} />
+        <FontAwesome5 name="stopwatch" size={15} color="white" style={{ marginTop: -15, top: -30, left: -138 }} />
         <Text style={{ fontFamily: 'raleway-bold', position: 'absolute', top: '63%', color: 'white', left: 30, marginTop: 20, fontSize: 20 }}>
           {course_name}
         </Text>
       </View>
       <TouchableOpacity onPress={ilham}>
-        <FontAwesome
+        <FontAwesome5
           name="angle-left"
           size={25}
           color="white"
           style={{ marginTop: -25, top: -280, left: -150 }}
         />
       </TouchableOpacity>
-      <FontAwesome
+      <FontAwesome5
         name="bookmark"
         size={22}
         color="white"
@@ -147,21 +143,19 @@ const DetailProduk = ({ route }) => {
         left: -4,
         fontFamily: 'raleway-regular'
       }}>
-        {showMore ? longText : `${longText.slice(0, 200)}...`}
+        {description}
       </Text>
-      <TouchableOpacity onPress={toggleShowMore} style={{ marginTop: 10, marginLeft: 20, ...buttonPosition }}>
-        <Text style={{ color: '#49aee7', fontSize: 12 }}>{showMore ? 'Show Less' : 'Show More'}</Text>
-      </TouchableOpacity>
       <Image
-        source={require('./assets/image/terbaru.png')} // Ganti dengan path gambar Anda
+        source={require('./assets/image/terbaru.png')}
         style={{
           width: 45,
           height: 45,
           borderRadius: 30,
-          marginTop: -10,
+          marginTop: 50,
           marginLeft: 20,
           left: -165,
-        }} />
+        }}
+      />
       <Text style={{
         fontFamily: 'raleway-regular',
         position: 'absolute',
@@ -170,26 +164,17 @@ const DetailProduk = ({ route }) => {
         top: 190,
         left: 80,
         marginTop: 137
-      }}>6 Bedroom</Text>
-      <Text style={{
-        fontFamily: 'raleway-regular',
-        position: 'absolute',
-        top: '50%',
-        color: 'white',
-        top: 188,
-        left: 198,
-        marginTop: 137
-      }}>4 Bathroom</Text>
+      }}>{duration !== null ? `${duration} Hari` : 'Loading...'}</Text>
+
       <View style={{ marginTop: 20, paddingHorizontal: 20, left: -36, top: -65 }}>
         <Text style={{ fontSize: 12, fontFamily: 'raleway-medium' }}>{instructorName}</Text>
         <Text style={{ fontSize: 12, fontFamily: 'raleway-regular', color: '#858585' }}>Main Tutor</Text>
       </View>
       <View style={{ width: 29.31, height: 29.31, backgroundColor: '#82c4e9', marginTop: -90, top: -8, left: 100, borderRadius: 5 }} />
-      <FontAwesome name="phone" size={15} color="white" style={{ marginTop: -16, left: 100, top: -14 }} />
+      <FontAwesome5 name="phone" size={15} color="white" style={{ marginTop: -16, left: 100, top: -14 }} />
       <View style={{ width: 29.31, height: 29.31, backgroundColor: '#82c4e9', marginTop: -90, top: 53, left: 140, borderRadius: 5 }} />
-      <FontAwesome name="comment" size={15} color="white" style={{ marginTop: -10, top: 40, left: 140 }} />
+      <FontAwesome5 name="comment" size={15} color="white" style={{ marginTop: -10, top: 40, left: 140 }} />
 
-      {/* Tulisan "Gallery" di bawahnya */}
       <Text style={{ fontSize: 17, fontFamily: 'raleway-medium', marginTop: 75, left: -145 }}>Gallery</Text>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 20, marginTop: 10 }}>
         {galleryImages.map((image, index) => (

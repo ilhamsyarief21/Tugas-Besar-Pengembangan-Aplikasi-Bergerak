@@ -23,26 +23,25 @@ const HomeScreen = ({ navigation }) => {
     };
 
     const fetchCategories = async () => {
-      try {
-        let url = 'http://si-sdm.id/ecourse/api/web/v1/courses/all';
+    try {
+      // Ganti URL sesuai kebutuhan
+      const url = 'http://si-sdm.id/ecourse/api/web/v1/courses/all';
 
-        if (selectedCourse) {
-          url += `?id=${selectedCourse}`;
-        }
+      const response = await fetch(url);
+      const result = await response.json();
 
-        const response = await fetch(url);
-        const result = await response.json();
-
-        if (Array.isArray(result.items)) {
-          setCategories(result.items);
-        } else {
-          console.error('API response does not contain an array of items:', result);
-          setCategories([]);
-        }
-      } catch (error) {
-        console.error('Error fetching categories:', error);
+      // Sesuaikan dengan struktur respons API yang baru
+      if (Array.isArray(result.items)) {
+        setCategories(result.items);
+      } else {
+        console.error('API response does not contain an array of items:', result);
+        setCategories([]);
       }
-    };
+    } catch (error) {
+      console.error('Error fetching categories:', error);
+    }
+  };
+
 
     loadFont();
     fetchCategories();
