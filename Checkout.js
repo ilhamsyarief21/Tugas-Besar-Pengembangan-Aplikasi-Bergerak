@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import * as Font from 'expo-font';
-import { useRoute } from '@react-navigation/native'; // Import useRoute
+import { useRoute } from '@react-navigation/native';
 
 const Checkout = () => {
-  const route = useRoute(); // Gunakan useRoute untuk mendapatkan objek route
+  const route = useRoute();
   const [fontLoaded, setFontLoaded] = useState(false);
   const [quantity, setQuantity] = useState('');
   const [totalPrice, setTotalPrice] = useState(0);
@@ -55,8 +55,12 @@ const Checkout = () => {
 
       <View style={styles.box}></View>
       <Text style={{ bottom: 75, fontFamily: 'raleway-medium' }}>Price</Text>
-      <Text style={{ bottom: 75, fontFamily: 'raleway-bold', fontSize: 23 }}>Rp. 250.000 / paket</Text>
-      <Text style={{ bottom: 75, fontFamily: 'raleway-medium', fontSize: 15, top: -50, left: 30 }}>Jumlah paket</Text>
+      <Text style={{ bottom: 75, fontFamily: 'raleway-bold', fontSize: 23 }}>
+        Rp. {route.params.price} / paket
+      </Text>
+      <Text style={{ bottom: 75, fontFamily: 'raleway-medium', fontSize: 15, top: -50, left: 30 }}>
+        Jumlah paket
+      </Text>
       <TextInput
         style={styles.input}
         keyboardType="numeric"
@@ -64,7 +68,9 @@ const Checkout = () => {
         value={quantity}
         onChangeText={(text) => setQuantity(text)}
       />
-      <Text style={{ bottom: 75, fontFamily: 'raleway-medium', fontSize: 15, top: -50, left: 30 }}>Voucher Code</Text>
+      <Text style={{ bottom: 75, fontFamily: 'raleway-medium', fontSize: 15, top: -50, left: 30 }}>
+        Voucher Code
+      </Text>
       <TextInput
         style={styles.input1}
         keyboardType="default"
@@ -90,7 +96,6 @@ const Checkout = () => {
     </View>
   );
 };
-
 
 const styles = StyleSheet.create({
   container: {
@@ -136,7 +141,7 @@ const styles = StyleSheet.create({
     top: -45,
   },
   button: {
-    width:130,
+    width: 130,
     height: 60,
     borderWidth: 2,
     top: 200,
@@ -148,7 +153,7 @@ const styles = StyleSheet.create({
     left: 18,
   },
   button1: {
-    width:130,
+    width: 130,
     height: 60,
     borderWidth: 2,
     top: 200,

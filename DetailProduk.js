@@ -11,7 +11,8 @@ const DetailProduk = ({ route }) => {
   const [price, setPrice] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [description, setDescription] = useState('');
-  const [duration, setDuration] = useState(null); // Tambahkan state untuk menyimpan durasi
+  const [duration, setDuration] = useState(null);
+  const navigation = useNavigation();
 
   useEffect(() => {
     const loadFont = async () => {
@@ -32,21 +33,21 @@ const DetailProduk = ({ route }) => {
       try {
         const response = await fetch(`http://si-sdm.id/ecourse/api/web/v1/courses/get-item?id=${route.params.course_id}`);
         const data = await response.json();
-
+    
         console.log('API Response:', data);
-
+    
         if (data.status === 'ok') {
           const course = data.data;
           const instructorName = course.pengajar;
           const price = course.harga;
           const descriptionFromAPI = course.deskripsi;
           const durationFromAPI = course.durasi;
-
+    
           console.log('Nama Pengajar:', instructorName);
           console.log('Harga:', price);
           console.log('Deskripsi dari API:', descriptionFromAPI);
           console.log('Durasi dari API:', durationFromAPI);
-
+    
           setInstructorName(instructorName);
           setPrice(price);
           setDescription(descriptionFromAPI);
@@ -65,18 +66,11 @@ const DetailProduk = ({ route }) => {
     fetchCourseDetails();
   }, []);
 
-  if (!fontLoaded || isLoading) {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
-    );
-  }
-
-  const navigation = useNavigation();
-
   const handlePress = () => {
-    navigation.navigate('Checkout', { course_name: course_name });
+    navigation.navigate('Checkout', {
+      course_name: course_name,
+      price: price,
+    });
   };
 
   const ilham = () => {
@@ -89,6 +83,7 @@ const DetailProduk = ({ route }) => {
     { source: require('./assets/image/5.jpeg'), width: 75, height: 75 },
     { source: require('./assets/image/6.jpeg'), width: 75, height: 75 },
   ];
+  
 
   return (
     <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center', paddingTop: 50 }}>
