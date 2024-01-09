@@ -78,10 +78,10 @@ const DetailProduk = ({ route }) => {
   };
 
   const galleryImages = [
-    { source: require('./assets/image/3.jpeg'), width: 75, height: 75 },
-    { source: require('./assets/image/4.jpeg'), width: 75, height: 75 },
-    { source: require('./assets/image/5.jpeg'), width: 75, height: 75 },
-    { source: require('./assets/image/6.jpeg'), width: 75, height: 75 },
+    { source: require('./assets/image/12.jpg'), width: 75, height: 75 },
+    { source: require('./assets/image/13.jpg'), width: 75, height: 75 },
+    { source: require('./assets/image/14.jpg'), width: 75, height: 75 },
+    { source: require('./assets/image/15.jpg'), width: 75, height: 75 },
   ];
   
 
@@ -89,7 +89,7 @@ const DetailProduk = ({ route }) => {
     <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center', paddingTop: 50 }}>
       <View style={{ width: 358.103, height: 324.965, borderRadius: 21.379, backgroundColor: 'lightblue', justifyContent: 'center', alignItems: 'center' }}>
         <Image
-          source={require('./assets/image/1.jpeg')}
+          source={require('./assets/image/11.jpg')}
           style={{
             width: '100%',
             height: '100%',

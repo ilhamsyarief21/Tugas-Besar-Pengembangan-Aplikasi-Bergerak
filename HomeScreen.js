@@ -74,8 +74,7 @@ const HomeScreen = ({ navigation }) => {
       if (Array.isArray(result.items)) {
         // Filter courses based on search results
         const filteredCourses = result.items.filter(course => {
-          return (!selectedCourse || selectedCourse === course.id) && 
-                 (!clickedIndex || clickedIndex === categories.findIndex(cat => cat.id === course.category_id));
+          return (!selectedCourse || selectedCourse === course.category_id || selectedCourse === course.id);
         });
   
         setCourses(filteredCourses);
@@ -89,6 +88,8 @@ const HomeScreen = ({ navigation }) => {
     }
   };
   
+  
+
 
   const handleItemClick = async (index) => {
     const categoryId = categories[index]?.id;
@@ -98,14 +99,15 @@ const HomeScreen = ({ navigation }) => {
       const coursesResponse = await fetch(coursesUrl);
       const coursesResult = await coursesResponse.json();
   
-      if (Array.isArray(coursesResult.items)) {
-        setCourses(coursesResult.items);
+      if (coursesResult.status === 'ok') {
+        setCourses(coursesResult.items || []);
       } else {
-        console.error('API response does not contain an array of items:', coursesResult);
+        console.error('API response has an error:', coursesResult.message);
         setCourses([]);
       }
     } catch (error) {
       console.error('Error fetching courses:', error);
+      setCourses([]);
     }
   
     if (clickedIndex === index) {
@@ -116,6 +118,14 @@ const HomeScreen = ({ navigation }) => {
       setSelectedCourse(categoryId);
     }
   };
+  
+  
+  
+  
+  
+  
+  
+  
   
 
   const renderItem = ({ item, index }) => {
@@ -205,7 +215,7 @@ const HomeScreen = ({ navigation }) => {
             >
               <View style={{ width: 237, height: 290, marginRight: 10, top: 20, marginLeft: 6, borderRadius: 21, overflow: 'hidden' }}>
                 <Image
-                  source={course.course_name === 'Course1' ? require('./assets/image/1.jpeg') : require('./assets/image/2.jpeg')}
+                  source={course.course_name === 'Course1' ? require('./assets/image/11.jpg') : require('./assets/image/11.jpg')}
                   style={{ width: '100%', height: '100%', borderRadius: 21 }}
                 />
                 <View style={{ position: 'absolute', bottom: 5, left: 0, right: 0, height: 100, borderRadius: 10, backgroundColor: 'rgba(0, 0, 0, 0.7)', opacity: 0.3 }} />
@@ -388,13 +398,13 @@ const HomeScreen = ({ navigation }) => {
 
       <TouchableOpacity onPress={() => navigation.navigate('DetailProduk', { course_name: 'Belajar PHP', pengajar: 'Riza Agustiansyah, S.T., M.T., Ph.D', course_id: 1 })}>
         <View style={{ width: 85, height: 83, marginRight: 10, top: -100, marginLeft: 14, borderRadius: 21, overflow: 'hidden' }}>
-          <Image source={require('./assets/image/bawah1.jpeg')} style={{ width: '100%', height: '100%' }} resizeMode="cover" />
+          <Image source={require('./assets/image/laraveel.png')} style={{ width: '100%', height: '100%' }} resizeMode="cover" />
         </View>
       </TouchableOpacity>
 
       <TouchableOpacity onPress={() => navigation.navigate('DetailProduk', { course_name: 'Belajar React Native', pengajar: 'ARI FAJAR SANTOSO', course_id: 2 })}>
         <View style={{ width: 85, height: 83, marginRight: 10, top: -10, marginLeft: 14, borderRadius: 21, overflow: 'hidden', marginTop: -80 }}>
-          <Image source={require('./assets/image/bawah2.jpeg')} style={{ width: '100%', height: '100%' }} resizeMode="cover" />
+          <Image source={require('./assets/image/react.png')} style={{ width: '100%', height: '100%' }} resizeMode="cover" />
         </View>
       </TouchableOpacity>
     </View>
