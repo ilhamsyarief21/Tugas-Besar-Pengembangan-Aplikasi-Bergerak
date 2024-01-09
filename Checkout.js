@@ -25,25 +25,26 @@ const Checkout = () => {
   }, []);
 
   const handleHitung = () => {
-    const pricePerPackage = 250000;
+    const pricePerPackage = route.params.price || 0; // Menggunakan harga dari API atau 0 jika tidak tersedia
     const enteredQuantity = parseInt(quantity) || 0;
     let calculatedTotalPrice = pricePerPackage * enteredQuantity;
-
+  
     if (voucherCode === 'POTONGAN50%') {
       const discountPercentage = 50;
       const discountAmount = (calculatedTotalPrice * discountPercentage) / 100;
       calculatedTotalPrice -= discountAmount;
-
+  
       // Alert for successful voucher application
       Alert.alert('Berhasil', 'Voucher Berhasil Dipasang!');
     } else {
       // Alert for incorrect voucher code
       Alert.alert('Error', 'Kode Voucher Tidak Ditemukan!');
     }
-
+  
     setTotalPrice(calculatedTotalPrice);
     setTotalPackets(enteredQuantity);
   };
+  
 
   if (!fontLoaded) {
     return null;
