@@ -70,17 +70,25 @@ const HomeScreen = ({ navigation }) => {
       const searchUrl = `http://si-sdm.id/ecourse/api/web/v1/courses/search-by-name?name=${searchText}`;
       const response = await fetch(searchUrl);
       const result = await response.json();
-
+  
       if (Array.isArray(result.items)) {
-        setCategories(result.items);
+        // Filter courses based on search results
+        const filteredCourses = result.items.filter(course => {
+          return (!selectedCourse || selectedCourse === course.id) && 
+                 (!clickedIndex || clickedIndex === categories.findIndex(cat => cat.id === course.category_id));
+        });
+  
+        setCourses(filteredCourses);
       } else {
         console.error('API response does not contain an array of items:', result);
-        setCategories([]);
+        setCourses([]);
       }
     } catch (error) {
       console.error('Error fetching search results:', error);
+      setCourses([]);
     }
   };
+  
 
   const handleItemClick = async (index) => {
     const categoryId = categories[index]?.id;
